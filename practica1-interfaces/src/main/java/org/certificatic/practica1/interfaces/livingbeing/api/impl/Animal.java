@@ -6,4 +6,10 @@ import lombok.Data;
 public class Animal {
 	private String type = "Animal";
 	private String subType;
+	as
+	dasd
+	a
+	sd
+	asd
+	asd
 }
