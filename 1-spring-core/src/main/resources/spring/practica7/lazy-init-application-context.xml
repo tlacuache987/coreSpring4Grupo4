@@ -4,9 +4,26 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
 	<!-- Define bean clase Car -->
+	<bean class="org.certificatic.spring.core.practica7.lazyinit.bean.Car" lazy-init="true">
+		<property name="engine" ref="engine" />
+		<property name="wheel1" ref="wheel" />
+		<property name="wheel2" ref="wheel" />
+		<property name="wheel3" ref="wheel" />
+		<property name="wheel4" ref="wheel" />
+	</bean>
 
 	<!-- Define bean engine -->
+	<bean id="engine" class="org.certificatic.spring.core.practica7.lazyinit.bean.Engine">
+		<property name="cylinderNumber" value="6" />
+		<property name="hp" value="300" />
+		<property name="serial" value="ABC-123-XYZ" />
+	</bean>
 
 	<!-- Define bean wheel -->
+	<bean id="wheel" class="org.certificatic.spring.core.practica7.lazyinit.bean.Wheel" scope="prototype">
+		<property name="rinSize" value="20" />
+		<property name="brand" value="Pirelli" />
+		<property name="material" value="PET" />
+	</bean>
 
 </beans>

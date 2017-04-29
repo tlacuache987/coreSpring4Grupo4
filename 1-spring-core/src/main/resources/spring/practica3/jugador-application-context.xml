@@ -4,11 +4,38 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
 	<!-- definir bean partidoBean -->
-
+	<bean id="partidoBean" class="org.certificatic.spring.core.practica3.liga.Partido">
+		<property name="nombre" value="Mexico vs Rusia" />
+	</bean>
+	
 	<!-- definir bean eventoBean -->
+	<bean id="eventoBean" class="org.certificatic.spring.core.practica3.liga.Evento">
+		<property name="nombre">
+			<value>Mundial Rusia 2018</value>
+		</property>
+	</bean>
 
 	<!-- definir bean torneoBean -->
+	<bean id="torneoBean" class="org.certificatic.spring.core.practica3.liga.Torneo">
+		<property name="nombre" value="Final" />	
+		<property name="evento" ref="eventoBean"  />
+	</bean>
 
 	<!-- definir bean jugadorBean -->
+	<bean id="jugadorBeanPrototype" class="org.certificatic.spring.core.practica3.jugador.JugadorFutbol" scope="prototype">
+		<property name="nombre" value="Chicharito" />
+		<property name="partido">
+			<ref bean="partidoBean"/>
+		</property>
+		<property name="torneo" ref="torneoBean" />
+	</bean>
+	
+	<bean id="jugadorBean" class="org.certificatic.spring.core.practica3.jugador.JugadorBeisbol">
+		<property name="nombre" value="Chicharito" />
+		<property name="partido">
+			<ref bean="partidoBean"/>
+		</property>
+		<property name="torneo" ref="torneoBean" />
+	</bean>
 
 </beans>

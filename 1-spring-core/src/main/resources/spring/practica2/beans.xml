@@ -4,7 +4,18 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
 	<!-- define bean holaMundoBean -->
+	<bean id="holaMundoBean" class="org.certificatic.spring.core.practica2.bean.HolaMundo" />
 
 	<!-- define bean holaMundoBean2 -->
+	<bean id="holaMundoBean2" class="org.certificatic.spring.core.practica2.bean.HolaMundo">
+		<property name="mensaje" value="viva Mexico" />
+	</bean>
+	
+	<!-- define bean holaMundoBean3 -->
+	<bean id="holaMundoBean3" class="org.certificatic.spring.core.practica2.bean.HolaMundo">
+		<constructor-arg>
+			<value>Hola Amigo</value>
+		</constructor-arg>
+	</bean>
 
 </beans>

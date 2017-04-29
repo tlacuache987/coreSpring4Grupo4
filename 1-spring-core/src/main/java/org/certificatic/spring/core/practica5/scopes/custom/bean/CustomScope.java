@@ -19,7 +19,6 @@ public class CustomScope implements Scope {
 	@Override
 	public Object get(String name, ObjectFactory<?> objectFactory) {
 
-		// System.out.println("solicitando bean: " + name);
 		log.info("solicitando bean: {}", name);
 
 		if (n >= 5) {

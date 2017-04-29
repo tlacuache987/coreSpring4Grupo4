@@ -14,6 +14,16 @@ public class HolaMundoNoSpringTest {
 		log.info("holaMundoNoSpringTest -------------------------");
 
 		// Crear instancia de HolaMundo
+		HolaMundo hola = null;
+
+		hola = new HolaMundo("Ivan");
+		
+		//hola.setMensaje("Ivan");
+		
+		Assert.assertNotNull(hola);
+		Assert.assertNotNull(hola.getMensaje());
+		
+		log.info("{}",hola);
 
 	}
 }
