@@ -1,31 +1,22 @@
 package org.certificatic.spring.core.practica10.beanpostprocessors.bpp;
 
-import org.certificatic.spring.core.practica10.beanpostprocessors.bean.Worker;
+import org.certificatic.spring.core.practica10.beanpostprocessors.bean.api.IWorker;
+import org.certificatic.spring.core.practica10.beanpostprocessors.bean.proxy.WorkerProxy;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.core.Ordered;
 
-public class BeanPostProcessor3 implements BeanPostProcessor, Ordered {
+public class BeanPostProcessor4 implements BeanPostProcessor, Ordered {
 
 	@Override
 	public int getOrder() {
-		return 3;
+		return 4;
 	}
 
 	@Override
 	public Object postProcessBeforeInitialization(Object bean, String name) throws BeansException {
 
 		System.out.println("[Bean Post Processor Before Initialization " + this.getOrder() + " ]");
-
-		if (bean instanceof Worker) {
-			Worker w = (Worker) bean;
-
-			System.out.println("[BPP] worker name: " + w.getName());
-			System.out.println("[BPP] worker age: " + w.getAge());
-
-			w.setName("Paula");
-			w.setAge(5);
-		}
 
 		return bean;
 	}
@@ -35,14 +26,12 @@ public class BeanPostProcessor3 implements BeanPostProcessor, Ordered {
 
 		System.out.println("[Bean Post Processor After Initialization " + this.getOrder() + " ]");
 
-		if (bean instanceof Worker) {
-			Worker w = (Worker) bean;
+		if (bean instanceof IWorker) {
+			IWorker w = (IWorker) bean;
 
-			System.out.println("[BPP] worker name: " + w.getName());
-			System.out.println("[BPP] worker age: " + w.getAge());
-
-			w.setName("Iker");
-			w.setAge(3);
+			WorkerProxy wp = new WorkerProxy();
+			wp.setOriginalWorker(w);
+			bean = wp;
 		}
 
 		return bean;
