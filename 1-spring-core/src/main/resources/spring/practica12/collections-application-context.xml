@@ -4,7 +4,92 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
 	<!-- Define bean clase AddressBook -->
+	<bean
+		class="org.certificatic.spring.core.practica12.collections.bean.AddressBook">
 
+		<property name="addresses">
+			<list>
+				<ref bean="ivanDireccionBean" />
+				<ref bean="ivanDireccionBean" />
+				<ref bean="lauraDireccionBean" />
+				<ref bean="lauraDireccionBean" />
+				<ref bean="pedroDireccionBean" />
+				<ref bean="pedroDireccionBean" />
+				<bean
+					class="org.certificatic.spring.core.practica12.collections.bean.Address">
+					<constructor-arg index="0" name="street" value="Xicotencatl 2"
+						type="java.lang.String" />
+					<constructor-arg index="1" name="externalNumber"
+						value="1222" type="int" />
+					<constructor-arg index="2" name="internalNumber"
+						value="72" type="java.lang.Integer" />
+					<property name="neighbor" value="Del Valle 2"></property>
+				</bean>
+			</list>
+		</property>
+
+		<property name="phones">
+			<set>
+				<ref bean="telefonoPapa" />
+				<ref bean="telefonoPapa" />
+				<ref bean="telefonoPapa" />
+				<ref bean="telefonoMama" />
+				<ref bean="telefonoMama" />
+				<ref bean="telefonoMama" />
+				<ref bean="telefonoMama" />
+				<ref bean="telefonoMama" />
+				<ref bean="telefonoHermanaMayor" />
+				<ref bean="telefonoHermanaMayor" />
+				<ref bean="telefonoHermanaMayor" />
+				<ref bean="telefonoHermanaMayor" />
+				<ref bean="telefonoHermanoMenor" />
+			</set>
+		</property>
+
+		<property name="emergencyNumbers">
+			<map>
+				<entry key="1" value="Bomberos: 060" />
+				<entry key="2" value="Bomberos: 070" />
+				<entry key="3" value="Bomberos: 080" />
+				<entry key-ref="numero4" value="Bomberos: 090" />
+			</map>
+		</property>
+
+		<property name="family">
+			<props>
+				<prop key="papa">Papa</prop>
+				<prop key="mama">Mama</prop>
+				<prop key="hijo">Hijo</prop>
+				<prop key="hija">Hija</prop>
+			</props>
+		</property>
+
+		<property name="numbers">
+			<array>
+				<value>1</value>
+				<value>2</value>
+				<value>3</value>
+				<ref bean="numero4" />
+			</array>
+		</property>
+
+		<property name="notes" value="Hola,mundo,curel" />
+
+		<property name="persons">
+			<array>
+				<ref bean="ivanPersonBean"/>
+				<ref bean="ivanPersonBean"/>
+				<ref bean="ivanPersonBean"/>
+				<ref bean="ivanPersonBean"/>
+			</array>
+		</property>
+
+	</bean>
+
+	<bean id="ivanPersonBean" class="org.certificatic.spring.core.practica12.collections.bean.Person">
+		<property name="name" value="Ivan" />
+		<property name="age" value="28" />
+	</bean>
 
 	<bean name="telefonoPapa"
 		class="org.certificatic.spring.core.practica12.collections.bean.Phone">

@@ -40,8 +40,7 @@ public class InnerBeansTest {
 
 		log.info("getStreetNameBeanTest -------------------");
 
-		String streetNameBean = applicationContext.getBean("streetNameBean",
-				String.class);
+		String streetNameBean = applicationContext.getBean("streetNameBean", String.class);
 
 		Assert.assertNotNull(streetNameBean);
 
@@ -55,8 +54,7 @@ public class InnerBeansTest {
 
 		log.info("getNameBeanTest -------------------");
 
-		String nameBean = applicationContext.getBean("nameBean",
-				String.class);
+		String nameBean = applicationContext.getBean("nameBean", String.class);
 
 		Assert.fail("Should have to fail at this line");
 
