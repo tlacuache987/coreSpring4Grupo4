@@ -2,6 +2,9 @@ package org.certificatic.spring.core.practica14.test.numericalConverter;
 
 import java.text.DecimalFormat;
 
+import org.certificatic.spring.core.practica14.numericalConverter.bean.NumericalConverter;
+import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.context.support.AbstractApplicationContext;
@@ -14,8 +17,8 @@ public class NumericalConverterTest {
 
 	private static ClassPathXmlApplicationContext applicationContext;
 
-	private DecimalFormat currencyFormat = new DecimalFormat(
-			"$ ###,###,###.##");
+	private DecimalFormat currencyFormat = new DecimalFormat("$ ###,###,###.##");
+
 	private DecimalFormat simpleNumberFormat = new DecimalFormat("#.##");
 
 	@Before
@@ -32,6 +35,23 @@ public class NumericalConverterTest {
 		// Obtener bean NumericalConverter
 		// realizar test con Asserts
 
+		NumericalConverter converter = applicationContext.getBean(NumericalConverter.class);
+		
+		Assert.assertNotNull(converter);
+		
+		double number = Math.random() * 999_999_999;
+		
+		String numeroStr = simpleNumberFormat.format(number);
+		
+		log.info("numero: {}", numeroStr);
+		log.info("amount: {}", currencyFormat.format(number));
+		
+		log.info("number in letters: {}", converter.convert(numeroStr, true));
+
+	}
+
+	@After
+	public void shutDown() {
 		((AbstractApplicationContext) applicationContext).close();
 	}
 
