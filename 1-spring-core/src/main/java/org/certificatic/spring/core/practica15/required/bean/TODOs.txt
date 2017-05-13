@@ -4,7 +4,7 @@ TODO 1.
 Analizar Clase Cameraman
 
 TODO 2.
-Utilizar anotación correspondiente para obligar inyección vía setter (por xml)
+Utilizar anotacion correspondiente para obligar inyeccion via setter (por xml)
 que satisfaga las dependencias name y dni 
 
 

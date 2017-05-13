@@ -7,33 +7,46 @@ import org.certificatic.spring.core.practica17.stereotypes.api.IRestControllerCl
 import org.certificatic.spring.core.practica17.stereotypes.api.IServiceClass;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 // Implementar run with spring-test
+@RunWith(SpringJUnit4ClassRunner.class)
 // cargar context configuration
+@ContextConfiguration("classpath:/spring/practica17/component-scan-stereotypes-application-context.xml")
 public class StereotypesBetterTest {
 
 	// Inyectar todas las dependencias
-
+	@Autowired
 	private IRestControllerClass restController;
 
+	@Autowired
 	private IRestControllerClass restController2;
 
+	@Autowired
 	private IServiceClass service;
 
+	@Autowired
 	private IServiceClass service2;
 
+	@Autowired
 	private IControllerClass controller;
 
+	@Autowired
 	private IComponentClass component;
 
+	@Autowired
 	private IRepositoryClass repository;
 
 	@Before
-	public void beforeClass() {
+	public void beforeTest() {
 		Assert.assertNotNull(restController);
 		Assert.assertNotNull(component);
 		Assert.assertNotNull(service);
@@ -76,8 +89,7 @@ public class StereotypesBetterTest {
 		log.info("componentTest -------------------");
 
 		String name = "My Component Implementation";
-
-		Assert.assertNotNull(component);
+		
 		Assert.assertEquals(name, component.getComponentClassName());
 
 		log.info("component: {}", component);
