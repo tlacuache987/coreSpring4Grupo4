@@ -7,13 +7,30 @@
 
 
 	<!-- Define bean clase Car -->
+	<bean class="org.certificatic.spring.core.practica13.autowire.bean.Car"
+		autowire="byType" scope="prototype" />
 
 	<!-- Define bean engine -->
+	<bean class="org.certificatic.spring.core.practica13.autowire.bean.Engine"
+		p:model="V6 Twin Turbo" p:cylinderNumber="6" p:serialNumber="ABC-123-XYZ"
+		scope="prototype" />
 
 	<!-- Define bean wheelGroup -->
+	<bean
+		class="org.certificatic.spring.core.practica13.autowire.bean.WheelGroup"
+		scope="prototype" p:wheelList-ref="wheelList" />
 
 	<!-- Define lista wheelList -->
+	<util:list id="wheelList" scope="prototype">
+		<ref bean="wheelBean" />
+		<ref bean="wheelBean" />
+		<ref bean="wheelBean" />
+		<ref bean="wheelBean" />
+	</util:list>
 
 	<!-- Define bean wheel -->
+	<bean id="wheelBean"
+		class="org.certificatic.spring.core.practica13.autowire.bean.Wheel"
+		p:material="PET" p:rinSize="18" p:speedIndicator="Y" scope="prototype" />
 
 </beans>

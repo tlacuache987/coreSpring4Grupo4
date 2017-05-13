@@ -4,7 +4,6 @@ Analizar clases POJO Currency, Numerical y NumericalConverter
 
 TODO 2.
 Definir beans en src\main\resources\spring\practica14\numerical-converter-application-context.xml
-ByType
 
 
 TODO 3.
