@@ -18,6 +18,12 @@ public class TeamY extends Team {
 
 	@Override
 	@Resource(name = "teamYListStringBean")
+
+	// @Inject
+	// @Qualifier("teamYListStringBean")
+
+	// @Autowired
+	// @Qualifier("teamYListStringBean")
 	public void setEmployees(List<String> employees) {
 		super.setEmployees(employees);
 	}
