@@ -11,8 +11,6 @@ import org.certificatic.spring.core.practica18.jsr330.bean.Employee;
 import org.certificatic.spring.core.practica18.jsr330.bean.Team;
 import org.certificatic.spring.core.practica18.jsr330.qualifiers.EmployeeQualifier;
 import org.certificatic.spring.core.practica18.jsr330.qualifiers.EmployeeQualifier.EmployeeType;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 
 @Named("team2")
 @Singleton
@@ -20,10 +18,10 @@ public class TeamY extends Team {
 
 	@Override
 	@Resource(name = "teamYListStringBean")
-	
+
 	// @Inject
 	// @Qualifier("teamYListStringBean")
-	
+
 	// @Autowired
 	// @Qualifier("teamYListStringBean")
 	public void setEmployees(List<String> employees) {
