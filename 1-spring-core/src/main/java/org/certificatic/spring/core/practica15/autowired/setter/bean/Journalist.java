@@ -1,5 +1,8 @@
 package org.certificatic.spring.core.practica15.autowired.setter.bean;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Required;
+
 import lombok.Data;
 
 @Data
@@ -12,22 +15,26 @@ public class Journalist {
 	private Pen pen;
 
 	// Inyectar
+	@Autowired
 	public void setName(String name) {
 		this.name = name;
 	}
 
 	// Inyectar
+	@Autowired
 	public void setAge(Integer age) {
 		this.age = age;
 	}
 
 	// Inyectar
+	@Autowired
 	public void setNotebook(NoteBook notebook) {
 		this.notebook = notebook;
 	}
 
 	// Inyectar
-	public void setAge(Pen pen) {
+	@Autowired
+	public void setPen(Pen pen) {
 		this.pen = pen;
 	}
 
