@@ -8,8 +8,7 @@ import org.certificatic.spring.core.practica19.javaconfig.bean.api.QuadraticEqua
 
 public class QuadraticEquationServiceImpl implements IQuadraticEquationService {
 
-	private DecimalFormat decimalFormater = new DecimalFormat(
-			"###,###,##0.00##");
+	private DecimalFormat decimalFormater = new DecimalFormat("###,###,##0.00##");
 
 	@Override
 	public QuadraticEquationResult solve(double a, double b, double c) {
@@ -24,24 +23,17 @@ public class QuadraticEquationServiceImpl implements IQuadraticEquationService {
 			sqrtOperation = Math.sqrt(BQuadraticMinusFourAC);
 
 			return QuadraticEquationResult.builder()
-					.x1(new Complex(Double.valueOf(decimalFormater
-							.format((minusB + sqrtOperation) / twoA))))
-					.x2(new Complex(Double.valueOf(decimalFormater
-							.format((minusB - sqrtOperation) / twoA))))
-					.build();
+					.x1(new Complex(Double.valueOf(decimalFormater.format((minusB + sqrtOperation) / twoA))))
+					.x2(new Complex(Double.valueOf(decimalFormater.format((minusB - sqrtOperation) / twoA)))).build();
 
 		} else {
 			sqrtOperation = Math.sqrt(-1 * BQuadraticMinusFourAC);
 
-			return QuadraticEquationResult.builder().x1(new Complex(
-					Double.valueOf(decimalFormater.format(minusB / twoA)),
-					Double.valueOf(
-							decimalFormater.format(sqrtOperation / twoA))))
-					.x2(new Complex(
-							Double.valueOf(
-									decimalFormater.format(minusB / twoA)),
-							Double.valueOf(decimalFormater
-									.format(-sqrtOperation / twoA))))
+			return QuadraticEquationResult.builder()
+					.x1(new Complex(Double.valueOf(decimalFormater.format(minusB / twoA)),
+							Double.valueOf(decimalFormater.format(sqrtOperation / twoA))))
+					.x2(new Complex(Double.valueOf(decimalFormater.format(minusB / twoA)),
+							Double.valueOf(decimalFormater.format(-sqrtOperation / twoA))))
 					.build();
 		}
 

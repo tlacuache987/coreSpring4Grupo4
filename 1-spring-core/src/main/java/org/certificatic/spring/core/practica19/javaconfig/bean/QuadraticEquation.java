@@ -2,8 +2,15 @@ package org.certificatic.spring.core.practica19.javaconfig.bean;
 
 import org.certificatic.spring.core.practica19.javaconfig.bean.api.IQuadraticEquationService;
 import org.certificatic.spring.core.practica19.javaconfig.bean.api.QuadraticEquationResult;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
+
+import lombok.Setter;
 
 // Define Bean prototype
+@Component
+@Scope("prototype")
 public class QuadraticEquation {
 
 	public enum QuadraticEquationValue {
@@ -15,7 +22,8 @@ public class QuadraticEquation {
 	private double c;
 
 	// Inyecta Dependencia
-	private IQuadraticEquationService quadraticService;
+	@Autowired
+	private @Setter IQuadraticEquationService quadraticService;
 
 	public void setValue(double value, QuadraticEquationValue type) {
 		switch (type) {
@@ -36,6 +44,11 @@ public class QuadraticEquation {
 
 	public QuadraticEquationResult solve() {
 		return this.quadraticService.solve(this.a, this.b, this.c);
+	}
+
+	@Override
+	public String toString() {
+		return this.quadraticService.quadraticEquationToString(this.a, this.b, this.c);
 	}
 
 }
