@@ -19,7 +19,7 @@ Analizar clase POJO QuadraticEquationResult
 
 
 TODO 6.
-Analizar clase implementación QuadraticEquationServiceImpl
+Analizar clase implementacion QuadraticEquationServiceImpl
 
 
 TODO 7.
@@ -35,7 +35,7 @@ Definir beans de servicio por java config
 
 
 TODO 10.
-Definir beans de la aplicación por java config
+Definir beans de la aplicaciï¿½n por java config
 
 
 TODO 11.

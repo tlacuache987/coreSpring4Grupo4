@@ -1,26 +1,15 @@
 package org.certificatic.spring.core.practica19.javaconfig;
 
-import org.certificatic.spring.core.practica19.javaconfig.bean.api.IQuadraticEquationService;
-import org.certificatic.spring.core.practica19.javaconfig.bean.api.impl.QuadraticEquationServiceImpl;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 
-// Habilitar Clase de configuración
+// Habilitar Clase de configuracion
+@Configuration
 // Habilitar component scan
-// Agregar Import de clases de configuraciónRepository y Service
+@ComponentScan(basePackages = { "org.certificatic.spring.core.practica19" })
+// Agregar Import de clases de configuracion Repository y Service
+@Import({ RepositoryConfig.class, ServiceConfig.class })
 public class ApplicationConfig {
-
-	// Definir bean
-	public IQuadraticEquationService quadraticService() {
-		return new QuadraticEquationServiceImpl();
-	}
-
-	// Definir bean
-	public IQuadraticEquationService quadraticService2() {
-		return new QuadraticEquationServiceImpl();
-	}
-
-	// Definir bean
-	public IQuadraticEquationService quadraticService3() {
-		return new QuadraticEquationServiceImpl();
-	}
 
 }
