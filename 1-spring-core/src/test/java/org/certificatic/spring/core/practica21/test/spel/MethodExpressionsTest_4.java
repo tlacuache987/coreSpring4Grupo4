@@ -34,8 +34,8 @@ public class MethodExpressionsTest_4 {
 
 		log.info("methodExpressionsTest -------------------");
 
-		// definir expresión substring que obtenga el valor esperado de Tesla
-		String teslaFirstName = (String) spelParser.parseExpression(null).getValue(teslaContext);
+		// definir expresion substring que obtenga el valor esperado de Tesla
+		String teslaFirstName = (String) spelParser.parseExpression("name.substring(0,6)").getValue(teslaContext);
 		
 		Assert.assertEquals("Nikola", teslaFirstName);
 		
@@ -43,8 +43,8 @@ public class MethodExpressionsTest_4 {
 
 		// -------------------------------------
 		
-		// definir expresión que verifique si el 'Rudolf Carl Virchow' es miebro de la sociedad IEEE
-		boolean isMemberRudolfCarlVirchow = (boolean) spelParser.parseExpression(null).getValue(societyContext);
+		// definir expresion que verifique si el 'Rudolf Carl Virchow' es miebro de la sociedad IEEE
+		boolean isMemberRudolfCarlVirchow = (boolean) spelParser.parseExpression("isMember('Rudolf Carl Virchow')").getValue(societyContext);
 		
 		Assert.assertFalse(isMemberRudolfCarlVirchow);
 		
@@ -52,8 +52,8 @@ public class MethodExpressionsTest_4 {
 
 		// -------------------------------------
 
-		// definir expresión que verifique si el 'Charles Babbage' es miebro de la sociedad IEEE
-		boolean isMemberCharlesBabbage = (boolean) spelParser.parseExpression(null).getValue(societyContext);
+		// definir expresion que verifique si el 'Charles Babbage' es miebro de la sociedad IEEE
+		boolean isMemberCharlesBabbage = (boolean) spelParser.parseExpression("isMember('Charles Babbage')").getValue(societyContext);
 		
 		Assert.assertTrue(isMemberCharlesBabbage);
 		
@@ -65,6 +65,7 @@ public class MethodExpressionsTest_4 {
 		String charlesBabage = "Charles Babbage";
 		
 		// definir la variable "inventor" con el nombre de "Charles Babbage" y agregarla al contexto sociedad IEEE
+		societyContext.setVariable("inventor", "Charles Babbage");
 		
 		// analizar
 		String isMemberCharlesBabbageString = spelParser
