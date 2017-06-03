@@ -19,7 +19,7 @@ Inyectar bean prototype de tipo IProcessor en clase SingletonBean
 
 
 TODO 6.
-Implementar inyección de métodos sobre clase SingletonBean.
+Implementar inyeccion de metodos sobre clase SingletonBean.
 
 
 TODO 7.

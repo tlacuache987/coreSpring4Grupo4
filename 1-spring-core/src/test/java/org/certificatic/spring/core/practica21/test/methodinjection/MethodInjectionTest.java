@@ -30,8 +30,10 @@ public class MethodInjectionTest {
 		Assert.assertNotNull(singletonBean2);
 
 		// valida que los singletonBean 1 y 2 son los mismos
+		Assert.assertSame(singletonBean1, singletonBean2);
 
 		// valida que los prototypes en cada singletonBean 1 y 2 son distintos
+		Assert.assertNotSame(singletonBean1.getProcessor(), singletonBean2.getProcessor());
 	}
 
 	@Test

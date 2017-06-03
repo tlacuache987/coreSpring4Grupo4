@@ -3,7 +3,7 @@ Analizar clases POJO GuessNumber y Magician
 
 
 TODO 2.
-Analizar TEST ResourceClassPathXmlApplicationContextTest (ojo revisar carpeta copy-classpath)
+Analizar TEST SpELTest_1
 
 
 TODO 3.
@@ -25,7 +25,7 @@ Analizar y completar TEST LiteralExpressionsTest_2
 
 
 TODO 6.
-Analizar clases POJO Inventor, PlaceOfBirth, Society y SocietyStub (esta última esta en el paquete test)
+Analizar clases POJO Inventor, PlaceOfBirth, Society y SocietyStub 
 
 
 TODO 7.
@@ -61,7 +61,7 @@ Analizar clase POJO Chicharronera y MyBeanResolver.
 
 
 TODO 12.
-Analizar clase de configuración ApplicationConfig.
+Analizar clase de configuraciï¿½n ApplicationConfig.
 
 
 TODO 13. 
