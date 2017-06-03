@@ -10,7 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 @Component("jugadorBean")
 public class Jugador implements IJugador {
 
-	@Value("Iván García")
+	@Value("Ivan Garcia")
 	private String nombre;
 
 	@Value("11")
@@ -18,12 +18,12 @@ public class Jugador implements IJugador {
 
 	@Override
 	public void ejecutarPase() {
-		print(this.getDatosJugador() + " pasa el balón.");
+		print(this.getDatosJugador() + " pasa el balon.");
 	}
 
 	@Override
 	public void cometerFalta() {
-		print(this.getDatosJugador() + " cometió una falta.");
+		print(this.getDatosJugador() + " cometio una falta.");
 	}
 
 	@Override
@@ -36,9 +36,9 @@ public class Jugador implements IJugador {
 		print(this.getDatosJugador() + " se prepara para tirar a gol.");
 
 		if (gol) {
-			print(this.getDatosJugador() + " anotó un gol.");
+			print(this.getDatosJugador() + " anoto un gol.");
 		} else {
-			throw new Exception(this.getDatosJugador() + " falló un tiro a gol.");
+			throw new Exception(this.getDatosJugador() + " fallo un tiro a gol.");
 		}
 
 		return;
@@ -49,9 +49,9 @@ public class Jugador implements IJugador {
 		print(this.getDatosJugador() + " se prepara para cobrar un penal.");
 
 		if (gol) {
-			print(this.getDatosJugador() + " anotó un gol de penal.");
+			print(this.getDatosJugador() + " anoto un gol de penal.");
 		} else {
-			throw new Exception(this.getDatosJugador() + " falló un tiro de penal.");
+			throw new Exception(this.getDatosJugador() + " fallo un tiro de penal.");
 		}
 
 		return;
