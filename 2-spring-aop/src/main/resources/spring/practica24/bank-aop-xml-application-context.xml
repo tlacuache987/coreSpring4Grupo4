@@ -28,7 +28,7 @@
 		<aop:aspect ref="serviceAccountLoggingAspect">
 
 			<aop:before
-				pointcut="within(org.certificatic.spring.aop.practica24.bank.service..*) and args(account, ..)"
+				pointcut="within(org..bank.service..*) and args(account, ..)"
 				method="beforeServiceAccountMethodExecutionAccount" />
 
 			<aop:before
@@ -61,6 +61,11 @@
 		</aop:aspect>
 
 		<!-- Define aspecto profilingAspect -->
+		<aop:aspect ref="profilingAspect">
+			<aop:around 
+				pointcut="within(org.certificatic.spring.aop.practica24.bank..*) and args(object, ..)" 
+				arg-names="object" method="beforeAccountMethodExecutionAccount"/>
+		</aop:aspect>
 
 	</aop:config>
 
