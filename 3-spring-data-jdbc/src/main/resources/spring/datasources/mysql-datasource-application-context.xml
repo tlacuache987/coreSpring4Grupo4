@@ -7,9 +7,28 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd">
 
 	<!-- cargar property-placeholder mysql-jdbc.properties -->
+	<context:property-placeholder
+		location="classpath:/spring/properties/mysql-jdbc.properties"
+		ignore-unresolvable="true" order="1" />
 
 	<!-- cargar property-placeholder c3p0-pooled-datasource.properties -->
+	<context:property-placeholder
+		location="classpath:/spring/properties/c3p0-pooled-datasource.properties"
+		ignore-unresolvable="true" order="2"/>
 
 	<!-- definir datasource com.mchange.v2.c3p0.ComboPooledDataSource -->
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+		destroy-method="close">
+
+		<property name="driverClass" value="${db.driverClassName}" />
+		<property name="jdbcUrl" value="${db.url}" />
+		<property name="user" value="${db.user}" />
+		<property name="password" value="${db.pass}" />
+
+		<property name="maxPoolSize" value="${c3p0.maxPoolSize}" />
+		<property name="minPoolSize" value="${c3p0.minPoolSize}" />
+		<property name="maxStatements" value="${c3p0.maxStatements}" />
+		<property name="testConnectionOnCheckout" value="${c3p0.testConnection}" />
+	</bean>
 	
 </beans>
