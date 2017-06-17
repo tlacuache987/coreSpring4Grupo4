@@ -20,7 +20,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class ProfilingAspect implements Ordered {
 
-	private @Getter int order = 101;
+	private @Getter int order = 99;
 
 	@Autowired
 	private IColorWriter colorWriter;
