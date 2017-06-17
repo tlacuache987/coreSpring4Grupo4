@@ -20,7 +20,7 @@ public class TransactionalService implements ITransactionalService {
 	@Override
 	// Habilitar Trasnactional read only
 	public BusinessObject getBusinessObject(Long id) {
-		log.info("{}", colorWriter.getColoredMessage(Color.BLUE,
+		log.info("{}", colorWriter.getColoredMessage(Color.RED,
 				"inside getBusinessObject"));
 		BusinessObject bo = BusinessObject.builder().id(id).data("some data")
 				.build();
@@ -29,7 +29,7 @@ public class TransactionalService implements ITransactionalService {
 
 	@Override
 	public void insertBusinessObject(BusinessObject businessObject) {
-		log.info("{}", colorWriter.getColoredMessage(Color.BLUE,
+		log.info("{}", colorWriter.getColoredMessage(Color.MAGENTA,
 				"inside insertBusinessObject"));
 		throw new UnsupportedOperationException(
 				"unsupported insertBusinessObject");
@@ -45,7 +45,7 @@ public class TransactionalService implements ITransactionalService {
 
 	@Override
 	public void deleteBusinessObject(Long id) {
-		log.info("{}", colorWriter.getColoredMessage(Color.BLUE,
+		log.info("{}", colorWriter.getColoredMessage(Color.CYAN,
 				"inside deleteBusinessObject"));
 		log.info("BusinessObject id: {} deleted", id);
 	}

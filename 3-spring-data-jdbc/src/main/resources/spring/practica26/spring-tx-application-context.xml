@@ -11,17 +11,34 @@
 
 	<context:component-scan
 		base-package="org.certificatic.spring.tx.pratica26,org.certificatic.spring.tx.util.bean.api.impl" />
-		
+
 	<import
 		resource="classpath:/spring/practica26/datasource-application-context.xml" />
 
 	<!-- Define DataSourceTransactionManager -->
+	<bean id="txManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
 
 
 	<!-- tx:advice -->
+	<tx:advice id="txAdvice" transaction-manager="txManager">
+		<tx:attributes>
+			<tx:method name="get*" read-only="true" />
+			<tx:method name="*" />
+		</tx:attributes>
+	</tx:advice>
 
 
 	<!-- Define Pointcut y Advisor mediante aop:config -->
+	<aop:config>
+		<aop:pointcut id="transactionalMethods"
+			expression="execution(* org.certificatic.spring.tx.pratica26..ITransactionalService.*(..))" />
+
+		<aop:advisor pointcut-ref="transactionalMethods"
+			advice-ref="txAdvice" />
+	</aop:config>
 
 
 </beans>
