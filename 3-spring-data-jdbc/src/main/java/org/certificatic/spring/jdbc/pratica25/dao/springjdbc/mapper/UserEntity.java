@@ -15,8 +15,12 @@ public class UserEntity {
 	private String password;
 
 	public static UserEntity map(User user) {
-		return UserEntity.builder().userId(user.getId()).fkCustomerId(user.getCustomer().getId())
-				.username(user.getUsername()).password(user.getPassword()).build();
+		return UserEntity.builder()
+				.userId(user.getId())
+				.fkCustomerId(user.getCustomer().getId())
+				.username(user.getUsername())
+				.password(user.getPassword())
+				.build();
 	}
 
 }

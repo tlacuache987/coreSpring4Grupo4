@@ -13,7 +13,7 @@ import org.springframework.jdbc.object.MappingSqlQuery;
 
 public class CustomerMappingSqlQuery extends MappingSqlQuery<Customer> {
 
-	private static final String SELECT = "SELECT * FROM SPRING_DATA_CUSTOMER_TBL INNER JOIN SPRING_DATA_USER_TBL ON CUSTOMER_ID=FK_CUSTOMER_ID WHERE CUSTOMER_ID = ?";
+	private static final String SELECT = "SELECT * FROM CUSTOMER_TBL INNER JOIN USER_TBL ON CUSTOMER_ID=FK_CUSTOMER_ID WHERE CUSTOMER_ID = ?";
 
 	private CustomerRowMapper customerRowMapper = new CustomerRowMapper();
 

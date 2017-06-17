@@ -2,90 +2,99 @@ package org.certificatic.spring.jdbc.pratica25.dao.springjdbc.impl.h2;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.certificatic.spring.jdbc.pratica25.dao.api.ICustomerDAO;
 import org.certificatic.spring.jdbc.pratica25.dao.springjdbc.GenericSpringJdbcDAO;
+import org.certificatic.spring.jdbc.pratica25.dao.springjdbc.rowcallbackhandler.SelectCustomerRowCallbackHandler;
 import org.certificatic.spring.jdbc.pratica25.domain.entities.Customer;
 import org.certificatic.spring.jdbc.pratica25.domain.entities.User;
 import org.springframework.context.annotation.Profile;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 @Repository
 @Profile({ "h2-in-memory", "h2-local" })
-public class CustomerSpringJdbcDAO extends GenericSpringJdbcDAO<Customer, Long>
-		implements ICustomerDAO {
+public class CustomerSpringJdbcDAO extends GenericSpringJdbcDAO<Customer, Long> implements ICustomerDAO {
 
-	private static final String INSERT_CUSTOMER = "INSERT INTO SPRING_DATA_CUSTOMER_TBL VALUES (null, :name, :lastName)";
-	private static final String INSERT_USER = "INSERT INTO SPRING_DATA_USER_TBL VALUES (null, :fkCustomerId, :username, :password)";
+	private static final String INSERT_CUSTOMER = "INSERT INTO CUSTOMER_TBL VALUES (null, :name, :lastName)";
+	private static final String INSERT_USER = "INSERT INTO USER_TBL VALUES (null, :fkCustomerId, :username, :password)";
 
-	private static final String UPDATE_CUSTOMER = "UPDATE SPRING_DATA_CUSTOMER_TBL SET NAME = :name, LAST_NAME = :lastName WHERE CUSTOMER_ID = :customerId";
-	private static final String UPDATE_USER = "UPDATE SPRING_DATA_USER_TBL SET USERNAME = :username, PASSWORD = :password WHERE USER_ID = :userId";
+	private static final String UPDATE_CUSTOMER = "UPDATE CUSTOMER_TBL SET NAME = :name, LAST_NAME = :lastName WHERE CUSTOMER_ID = :customerId";
+	private static final String UPDATE_USER = "UPDATE USER_TBL SET USERNAME = :username, PASSWORD = :password WHERE USER_ID = :userId";
 
-	private static final String SELECT_CUSTOMER = "SELECT * FROM SPRING_DATA_CUSTOMER_TBL WHERE CUSTOMER_ID = :customerId";
-	private static final String SELECT_USER_WHERE_CUSTOMER_ID = "SELECT * FROM SPRING_DATA_USER_TBL WHERE FK_CUSTOMER_ID = :customerId";
+	private static final String SELECT_CUSTOMER_WHERE_CUSTOMER_ID = "SELECT * FROM CUSTOMER_TBL WHERE CUSTOMER_ID = :customerId";
+	private static final String SELECT_USER_WHERE_CUSTOMER_ID = "SELECT * FROM USER_TBL WHERE FK_CUSTOMER_ID = :customerId";
 
-	private static final String SELECT_ALL_CUSTOMER_USER = "SELECT * FROM SPRING_DATA_CUSTOMER_TBL, SPRING_DATA_USER_TBL WHERE CUSTOMER_ID = FK_CUSTOMER_ID";
+	private static final String SELECT_ALL_CUSTOMER_USER = "SELECT * FROM CUSTOMER_TBL, USER_TBL WHERE CUSTOMER_ID = FK_CUSTOMER_ID";
 
-	private static final String DELETE_ACCOUNT_TABLE_WHERE_CUSTOMER_ID = "DELETE FROM SPRING_DATA_ACCOUNT_TBL WHERE FK_CUSTOMER_ID = :customerId";
-	private static final String DELETE_USER_WHERE_USER_ID = "DELETE FROM SPRING_DATA_USER_TBL WHERE USER_ID = :userId";
-	private static final String DELETE_CUSTOMER_WHERE_CUSTOMER_ID = "DELETE FROM SPRING_DATA_CUSTOMER_TBL WHERE CUSTOMER_ID = :customerId";
-
-	// Borrar
-	private NamedParameterJdbcTemplate namedJdbcTemplate;
+	private static final String DELETE_ACCOUNT_TABLE_WHERE_CUSTOMER_ID = "DELETE FROM ACCOUNT_TBL WHERE FK_CUSTOMER_ID = :customerId";
+	private static final String DELETE_USER_WHERE_USER_ID = "DELETE FROM USER_TBL WHERE USER_ID = :userId";
+	private static final String DELETE_CUSTOMER_WHERE_CUSTOMER_ID = "DELETE FROM CUSTOMER_TBL WHERE CUSTOMER_ID = :customerId";
 
 	@Override
-	public void insert(Customer entity) {
+	public void insert(Customer customer) {
 
 		// INSERT CUSTOMER
 		MapSqlParameterSource parameterSource = new MapSqlParameterSource();
 
 		// Implementar Settear parametros a parameterSource
+		parameterSource.addValue("name", customer.getName());
+		parameterSource.addValue("lastName", customer.getLastName());
 
 		KeyHolder keyHolder = new GeneratedKeyHolder();
 
 		// Implementar pasar argumentos a update
-		this.namedJdbcTemplate.update(null, null, null);
+		this.namedJdbcTemplate.update(INSERT_CUSTOMER, parameterSource, keyHolder);
 
-		entity.setId(keyHolder.getKey().longValue());
+		customer.setId(keyHolder.getKey().longValue());
 
 		// INSERT USER
 		parameterSource = new MapSqlParameterSource();
 
 		// Implementar Settear parametros a parameterSource
+		parameterSource.addValue("fkCustomerId", customer.getUser().getCustomer().getId());
+		parameterSource.addValue("username", customer.getUser().getUsername());
+		parameterSource.addValue("password", customer.getUser().getPassword());
 
 		keyHolder = new GeneratedKeyHolder();
 
 		// Implementar pasar argumentos a update
-		this.namedJdbcTemplate.update(null, null, null);
+		this.namedJdbcTemplate.update(INSERT_USER, parameterSource, keyHolder);
 
-		entity.getUser().setId(keyHolder.getKey().longValue());
+		customer.getUser().setId(keyHolder.getKey().longValue());
 	}
 
 	@Override
-	public void update(Customer entity) {
+	public void update(Customer customer) {
 
 		// UPDATE CUSTOMER
 		Map<String, Object> mapParameters = new HashMap<>();
 
 		// Implementar Settear parametros a mapParameters
+		mapParameters.put("name", customer.getName());
+		mapParameters.put("lastName", customer.getLastName());
+		mapParameters.put("customerId", customer.getId());
+
 		// Implementar NamedParameterJdbcTemplate y pasar argumentos a update
+		this.namedJdbcTemplate.update(UPDATE_CUSTOMER, mapParameters);
 
 		// UPDATE USER
 		mapParameters = new HashMap<>();
 
 		// Implementar Settear parametros a mapParameters
-		// Implementar NamedParameterJdbcTemplate y pasar argumentos a update
+		mapParameters.put("username", customer.getUser().getUsername());
+		mapParameters.put("password", customer.getUser().getPassword());
+		mapParameters.put("userId", customer.getUser().getId());
 
+		// Implementar NamedParameterJdbcTemplate y pasar argumentos a update
+		this.namedJdbcTemplate.update(UPDATE_USER, mapParameters);
 	}
 
 	@Override
@@ -97,16 +106,18 @@ public class CustomerSpringJdbcDAO extends GenericSpringJdbcDAO<Customer, Long>
 		parameterSource.addValue("customerId", id);
 
 		try {
-			customer = this.namedJdbcTemplate.queryForObject(SELECT_CUSTOMER,
-					parameterSource,
+			customer = this.namedJdbcTemplate.queryForObject(SELECT_CUSTOMER_WHERE_CUSTOMER_ID, parameterSource,
 					new RowMapper<Customer>() {
 						@Override
-						public Customer mapRow(ResultSet rs, int rowNum)
-								throws SQLException {
+						public Customer mapRow(ResultSet rs, int rowNum) throws SQLException {
 
 							// Implementar Customer solo.
+							Customer c = new Customer();
+							c.setId(rs.getLong("CUSTOMER_ID"));
+							c.setName(rs.getString("NAME"));
+							c.setLastName(rs.getString("LAST_NAME"));
 
-							return null;
+							return c;
 						}
 					});
 
@@ -119,13 +130,16 @@ public class CustomerSpringJdbcDAO extends GenericSpringJdbcDAO<Customer, Long>
 		parameterSource = new MapSqlParameterSource();
 		parameterSource.addValue("customerId", customer.getId());
 
-		User user = this.namedJdbcTemplate.queryForObject(
-				SELECT_USER_WHERE_CUSTOMER_ID, parameterSource,
+		User user = this.namedJdbcTemplate.queryForObject(SELECT_USER_WHERE_CUSTOMER_ID, parameterSource,
 				(ResultSet rs, int rowNum) -> {
 
 					// Implementar User solo
+					User u = new User();
+					u.setId(rs.getLong("USER_ID"));
+					u.setUsername(rs.getString("USERNAME"));
+					u.setPassword(rs.getString("PASSWORD"));
 
-					return null;
+					return u;
 				});
 
 		customer.setUser(user);
@@ -141,30 +155,37 @@ public class CustomerSpringJdbcDAO extends GenericSpringJdbcDAO<Customer, Long>
 	}
 
 	@Override
-	public Customer delete(Customer entity) {
-		if (entity == null)
-			return entity;
+	public Customer delete(Customer customer) {
+		if (customer == null)
+			return customer;
 
 		// DELETE COMPLETE RELATIONS OF CUSTOMER WITH ALL TABLES
 		Map<String, Object> mapParameters = new HashMap<>();
+		mapParameters.put("customerId", customer.getId());
+		mapParameters.put("userId", customer.getUser().getId());
 
 		// Implementar DELETE's utilizando NamedParameterJdbcTemplate y
 		// mapParameters
 
-		return entity;
+		this.namedJdbcTemplate.update(DELETE_ACCOUNT_TABLE_WHERE_CUSTOMER_ID, mapParameters);
+		this.namedJdbcTemplate.update(DELETE_USER_WHERE_USER_ID, mapParameters);
+		this.namedJdbcTemplate.update(DELETE_CUSTOMER_WHERE_CUSTOMER_ID, mapParameters);
+
+		return customer;
 	}
 
 	@Override
 	public List<Customer> findAll() {
 
-		final List<Customer> customerList = new ArrayList<>();
-
 		// FIND COMPLETE ALL CUSTOMER (WITH USER)
 
 		// Implementar query utilizando NamedParameterJdbcTemplate y
 		// RowCallbackHandler
+		SelectCustomerRowCallbackHandler selectCustomerRowCallbackHandler = new SelectCustomerRowCallbackHandler();
 
-		return customerList;
+		this.namedJdbcTemplate.query(SELECT_ALL_CUSTOMER_USER, selectCustomerRowCallbackHandler);
+
+		return selectCustomerRowCallbackHandler.getCustomerList();
 	}
 
 }

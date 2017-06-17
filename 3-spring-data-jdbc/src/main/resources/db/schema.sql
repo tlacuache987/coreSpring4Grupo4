@@ -1,6 +1,6 @@
-drop table if exists SPRING_DATA_USER_TBL;
-drop table if exists SPRING_DATA_CUSTOMER_TBL;
-drop table if exists SPRING_DATA_ACCOUNT_TBL;
+drop table if exists USER_TBL;
+drop table if exists CUSTOMER_TBL;
+drop table if exists ACCOUNT_TBL;
 
 create table USER_TBL(
 	USER_ID integer identity primary key,
@@ -36,7 +36,7 @@ CREATE PROCEDURE read_customer_user (
 BEGIN
     SELECT USER_ID, CUSTOMER_ID, USERNAME, PASSWORD, NAME, LAST_NAME  
     INTO out_user_id, out_customer_id, out_username, out_password, out_name, out_last_name  
-    FROM SPRING_DATA_USER_TBL, SPRING_DATA_CUSTOMER_TBL  WHERE CUSTOMER_ID = FK_CUSTOMER_ID AND CUSTOMER_ID = in_customerId;
+    FROM USER_TBL, CUSTOMER_TBL  WHERE CUSTOMER_ID = FK_CUSTOMER_ID AND CUSTOMER_ID = in_customerId;
 END //
 DELIMITER ;
 */

@@ -9,7 +9,7 @@ import org.springframework.jdbc.object.SqlUpdate;
 
 public class UserSqlUpdate extends SqlUpdate {
 
-	private static final String UPDATE = "UPDATE SPRING_DATA_USER_TBL SET USERNAME = ?, PASSWORD = ? WHERE USER_ID = ?";
+	private static final String UPDATE = "UPDATE USER_TBL SET USERNAME = ?, PASSWORD = ? WHERE USER_ID = ?";
 
 	public UserSqlUpdate(DataSource dataSource) {
 

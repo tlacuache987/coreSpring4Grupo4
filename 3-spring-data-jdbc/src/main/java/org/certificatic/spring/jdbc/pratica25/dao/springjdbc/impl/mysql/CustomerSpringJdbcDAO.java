@@ -46,13 +46,7 @@ public class CustomerSpringJdbcDAO extends GenericSpringJdbcDAO<Customer, Long>
 	private CustomerSqlUpdate customerSqlUpdate;
 	private UserSqlUpdate userSqlUpdate;
 
-	private static final String SELECT_ALL_CUSTOMER_USER = "SELECT * FROM SPRING_DATA_CUSTOMER_TBL, SPRING_DATA_USER_TBL WHERE CUSTOMER_ID = FK_CUSTOMER_ID";
-
-	// Borrar
-	private NamedParameterJdbcTemplate namedJdbcTemplate;
-
-	// Borrar
-	private @Getter JdbcTemplate jdbcTemplate;
+	private static final String SELECT_ALL_CUSTOMER_USER = "SELECT * FROM CUSTOMER_TBL, USER_TBL WHERE CUSTOMER_ID = FK_CUSTOMER_ID";
 
 	@Override
 	public void afterPropertiesSet() throws Exception {
@@ -63,61 +57,65 @@ public class CustomerSpringJdbcDAO extends GenericSpringJdbcDAO<Customer, Long>
 
 		this.insertCustomer = new SimpleJdbcInsert(
 				this.getJdbcTemplate().getDataSource())
-						.withTableName("SPRING_DATA_CUSTOMER_TBL")
+						.withTableName("CUSTOMER_TBL")
 						.usingGeneratedKeyColumns("CUSTOMER_ID");
 
 		this.insertUser = new SimpleJdbcInsert(
 				this.getJdbcTemplate().getDataSource())
-						.withTableName("SPRING_DATA_USER_TBL")
+						.withTableName("USER_TBL")
 						.usingGeneratedKeyColumns("USER_ID");
 
 		this.customerSqlQuery = new CustomerMappingSqlQuery(
 				this.getJdbcTemplate().getDataSource());
+		
 		this.customerSqlUpdate = new CustomerSqlUpdate(
 				this.getJdbcTemplate().getDataSource());
+		
 		this.userSqlUpdate = new UserSqlUpdate(
 				this.getJdbcTemplate().getDataSource());
 	}
 
 	@Override
-	public void insert(Customer entity) {
+	public void insert(Customer customer) {
 
 		// INSERT CUSTOMER
 		KeyHolder keyHolder = this.insertCustomer.executeAndReturnKeyHolder(
-				new BeanPropertySqlParameterSource(entity));
+				new BeanPropertySqlParameterSource(customer));
 
-		entity.setId(keyHolder.getKey().longValue());
+		customer.setId(keyHolder.getKey().longValue());
 
 		// INSERT USER
-		UserEntity userEntity = UserEntity.map(entity.getUser());
+		UserEntity userEntity = UserEntity.map(customer.getUser());
 
 		keyHolder = this.insertUser.executeAndReturnKeyHolder(
 				new BeanPropertySqlParameterSource(userEntity));
 
-		entity.getUser().setId(keyHolder.getKey().longValue());
+		customer.getUser().setId(keyHolder.getKey().longValue());
 	}
 
 	@Override
-	public void update(Customer entity) {
+	public void update(Customer customer) {
 
 		// UPDATE CUSTOMER
-		this.customerSqlUpdate.execute(entity.getId(), entity.getName(),
-				entity.getLastName());
+		this.customerSqlUpdate.execute(customer.getId(), customer.getName(),
+				customer.getLastName());
 
 		// UPDATE USER
-		this.userSqlUpdate.execute(entity.getUser().getId(),
-				entity.getUser().getUsername(),
-				entity.getUser().getPassword());
+		this.userSqlUpdate.execute(customer.getUser().getId(),
+				customer.getUser().getUsername(),
+				customer.getUser().getPassword());
 	}
 
 	@Override
 	public Customer findById(Long id) {
+		
+		//return customerSqlQuery.execute();
+		
 		// FIND USER OF CUSTOMER BY CUSTOMER_ID
 		SqlParameterSource parameterSource = new MapSqlParameterSource()
 				.addValue("in_customerId", id);
 
-		Map<String, Object> out = readCustomerProcedure
-				.execute(parameterSource);
+		Map<String, Object> out = readCustomerProcedure.execute(parameterSource);
 
 		if ((Integer) out.get("#update-count-1") == 0)
 			return null;
@@ -145,24 +143,24 @@ public class CustomerSpringJdbcDAO extends GenericSpringJdbcDAO<Customer, Long>
 	}
 
 	@Override
-	public Customer delete(Customer entity) {
-		if (entity == null)
-			return entity;
+	public Customer delete(Customer customer) {
+		if (customer == null)
+			return customer;
 
 		// DELETE COMPLETE RELATIONS OF CUSTOMER WITH ALL TABLES
-		final String DELETE_ACCOUNT_TABLE = "DELETE FROM SPRING_DATA_ACCOUNT_TBL WHERE FK_CUSTOMER_ID = :customerId";
-		final String DELETE_USER_TABLE = "DELETE FROM SPRING_DATA_USER_TBL WHERE USER_ID = :userId";
-		final String DELETE_CUSTOMER_TABLE = "DELETE FROM SPRING_DATA_CUSTOMER_TBL WHERE CUSTOMER_ID = :customerId";
+		final String DELETE_ACCOUNT_TABLE = "DELETE FROM ACCOUNT_TBL WHERE FK_CUSTOMER_ID = :customerId";
+		final String DELETE_USER_TABLE = "DELETE FROM USER_TBL WHERE USER_ID = :userId";
+		final String DELETE_CUSTOMER_TABLE = "DELETE FROM CUSTOMER_TBL WHERE CUSTOMER_ID = :customerId";
 
 		Map<String, Object> paramMap = new HashMap<>();
-		paramMap.put("customerId", entity.getId());
-		paramMap.put("userId", entity.getUser().getId());
+		paramMap.put("customerId", customer.getId());
+		paramMap.put("userId", customer.getUser().getId());
 
 		this.namedJdbcTemplate.update(DELETE_ACCOUNT_TABLE, paramMap);
 		this.namedJdbcTemplate.update(DELETE_USER_TABLE, paramMap);
 		this.namedJdbcTemplate.update(DELETE_CUSTOMER_TABLE, paramMap);
 
-		return entity;
+		return customer;
 	}
 
 	@Override
