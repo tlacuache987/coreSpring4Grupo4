@@ -9,7 +9,7 @@
 	<context:property-placeholder
 		location="classpath:/spring/jdbc-properties/h2-jdbc.properties" />
 
-	<bean id="datasource" class="org.apache.commons.dbcp.BasicDataSource">
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
 		<property name="driverClassName" value="${db.driverClassName}" />
 		<property name="url" value="${db.url}" />
 		<property name="username" value="${db.user}" />

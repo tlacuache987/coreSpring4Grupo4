@@ -14,7 +14,7 @@
 		location="classpath:/spring/properties/c3p0-pooled-datasource.properties"
 		ignore-unresolvable="true" order="2" />
 
-	<bean id="datasource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
 		destroy-method="close">
 
 		<property name="driverClass" value="${db.driverClassName}" />
