@@ -29,8 +29,7 @@ public class PersonValidatorMxTestUtils {
 
 				if (fieldError.getRejectedValue() != null && ((Integer) fieldError.getRejectedValue()) < 18)
 					Assert.assertEquals("Edad necesita ser mayor o igual a 18 para el objeto Persona.", messageSource
-							.getMessage(error,
-									mxLocale));
+							.getMessage(error, mxLocale));
 				else
 					Assert.assertEquals("Edad es requerido para el objeto Persona.", messageSource.getMessage(error,
 							mxLocale));
