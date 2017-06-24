@@ -19,7 +19,7 @@ class IndexController {
 	@RequestMapping(value={"/", ""}, method = RequestMethod.GET)
 	public String showIndexPage(Model model) {
 		// Agregar mensaje "message" al modelo
-		model.addAttribute("message", "Hello World");
+		model.addAttribute("message", "Hello World: " + beanComponent.sayHello("Petra"));
 		
 		return "index";
 	}
