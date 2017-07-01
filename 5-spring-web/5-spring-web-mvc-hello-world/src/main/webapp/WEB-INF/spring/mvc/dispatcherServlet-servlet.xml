@@ -8,7 +8,7 @@
 
 	<!-- Agregar paquete practica29 y practica31 a component-scan -->
 	<context:component-scan
-		base-package="org.certificatic.spring.mvc.practica28, org.certificatic.spring.mvc.practica29">
+		base-package="org.certificatic.spring.mvc.practica28, org.certificatic.spring.mvc.practica29, org.certificatic.spring.mvc.practica31">
 		<context:exclude-filter type="regex"
 			expression="org.certificatic.spring.mvc.practica28.rootbeans.*" />
 	</context:component-scan>

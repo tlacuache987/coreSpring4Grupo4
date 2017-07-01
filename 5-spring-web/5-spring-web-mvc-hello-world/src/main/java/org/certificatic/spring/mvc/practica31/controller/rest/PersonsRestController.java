@@ -38,8 +38,13 @@ public class PersonsRestController {
 
 	// Anotar request mapping "/{id}", con metodo GET y produciendo json y xml
 	// Anotar response status ok
-	public Person getPerson(@PathVariable Integer id) {
-		return persons.get(id - 1);
+	public ResponseEntity<?> getPerson(@PathVariable Integer id) {
+		try {
+			Person p = persons.get(id - 1);
+			return new ResponseEntity<>(p, HttpStatus.OK);
+		} catch (IndexOutOfBoundsException ex) {
+			return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
+		}
 	}
 
 	// Anotar request mapping "/", "", con metodo POST y produciendo json y xml
@@ -49,10 +54,10 @@ public class PersonsRestController {
 	}
 
 	// Anotar request mapping "/getException", con metodo GET y produciendo json
-	// y xml. Analizar implementación
+	// y xml. Analizar implementacion
 	public ResponseEntity<RestResponseError> getException() {
 		try {
-			throw new IllegalArgumentException("Argumentos Inválidos");
+			throw new IllegalArgumentException("Argumentos Invalidos");
 
 		} catch (IllegalArgumentException ex) {
 			String errorMessage = "Exception: " + ex.getMessage();
